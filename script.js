@@ -23,3 +23,22 @@ function renderStudents (){
     });
     localStorage.setItem("students", JSON.stringify(students));
 }
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const studentName = document.getElementById("studentName").value;
+    const id = document.getElementById("studentID").value;
+    const email = document.getElementById("email").value;
+    const contact = document.getElementById("contact").value;
+
+    if(!studentName || !id || !email || contact ){
+        alert("All Fields are Required");
+        return;
+    }
+
+    students.push({studentName, id, email, contact});
+    form.reset();
+    renderStudents();
+
+});
+
