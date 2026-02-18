@@ -22,19 +22,58 @@ function renderStudents (){
         studentList.innerHTML += row;
     });
     localStorage.setItem("students", JSON.stringify(students));
+
+    const displaySection = document.querySelector(".display-section");
+
+    if (students.length > 5){
+        displaySection.style.overflowY = "scroll";
+    } else {
+        displaySection.style.overflowY = "hidden";
+    }
+
 }
 
 form.addEventListener("submit", function(e) {
     e.preventDefault();
-    const studentName = document.getElementById("studentName").value;
-    const id = document.getElementById("studentID").value;
-    const email = document.getElementById("email").value;
-    const contact = document.getElementById("contact").value;
+    const studentName = document.getElementById("studentName").value.trim;
+    const id = document.getElementById("studentID").value.trim;
+    const email = document.getElementById("email").value.trim;
+    const contact = document.getElementById("contact").value.trim;
+
+    const namePattern = /^[A-Za-z ]+$/;
+    const idPattern = /^[0-9]+$/;
+     const contactPattern = /^[0-9]{10,}$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(!studentName || !id || !email || contact ){
         alert("All Fields are Required");
         return;
     }
+
+    if (!namePattern.test(studentName)){
+        alert("Name should only contain letters");
+        return;
+    }
+
+    if (!idPattern.test(studentID)){
+        alert("ID should only contain Numbers");
+        return;
+    }
+
+    if (!contactPattern.test(contact)){
+        alert("Contact should atleast be 10 digits");
+        return;
+    }
+
+    if (!emailPattern.test(email)){
+        alert("Should be a valid email address");
+        return;
+    }
+
+
+
+
+
 
     students.push({studentName, id, email, contact});
     form.reset();
