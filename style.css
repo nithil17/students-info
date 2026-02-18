@@ -48,3 +48,25 @@ th, td {
     border: 1px solid #ddd;
     text-align: center;
 }
+
+@media (max-width: 640px) {
+    form {
+        width: 90%;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    form {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1025px) {
+    form {
+        width: 300px;
+    }
+}
