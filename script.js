@@ -42,3 +42,21 @@ form.addEventListener("submit", function(e) {
 
 });
 
+function deleteStudent() {
+    students.splice(index, 1);
+    renderStudents();
+}
+
+function editStudent() {
+    const student = students[index];
+    document.getElementById("name").value = student.name;
+    document.getElementById("studentId").value = student.id;
+    document.getElementById("email").value = student.email;
+    document.getElementById("contact").value = student.contact;
+
+    students.splice(index, 1);
+    renderStudents();
+
+}
+
+renderStudents();
