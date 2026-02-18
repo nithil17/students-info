@@ -1,7 +1,9 @@
+console.log("JS Loaded");
+
 const form = document.getElementById("inputForm");
 const studentList = document.getElementById("studentList")
 
-let students = JSON.parse(localStorage.getItem("students")||[]);
+let students = JSON.parse(localStorage.getItem("students")) || [] ;
 
 function renderStudents (){
     studentList.innerHTML ="";
@@ -9,7 +11,7 @@ function renderStudents (){
     students.forEach((student, index) => {
         const row = `
              <tr>
-                <td>${student.name}</td>
+                <td>${student.studentName}</td>
                 <td>${student.id}</td>
                 <td>${student.email}</td>
                 <td>${student.contact}</td>
@@ -35,67 +37,64 @@ function renderStudents (){
 
 form.addEventListener("submit", function(e) {
     e.preventDefault();
-    const studentName = document.getElementById("studentName").value.trim;
-    const id = document.getElementById("studentID").value.trim;
-    const email = document.getElementById("email").value.trim;
-    const contact = document.getElementById("contact").value.trim;
+
+    const studentName = document.getElementById("studentName").value.trim();
+    const id = document.getElementById("studentID").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const contact = document.getElementById("contact").value.trim();
 
     const namePattern = /^[A-Za-z ]+$/;
     const idPattern = /^[0-9]+$/;
-     const contactPattern = /^[0-9]{10,}$/;
+    const contactPattern = /^[0-9]{10,}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(!studentName || !id || !email || contact ){
+    if (!studentName || !id || !email || !contact) {
         alert("All Fields are Required");
         return;
     }
 
-    if (!namePattern.test(studentName)){
+    if (!namePattern.test(studentName)) {
         alert("Name should only contain letters");
         return;
     }
 
-    if (!idPattern.test(studentID)){
+    if (!idPattern.test(id)) {
         alert("ID should only contain Numbers");
         return;
     }
 
-    if (!contactPattern.test(contact)){
+    if (!contactPattern.test(contact)) {
         alert("Contact should atleast be 10 digits");
         return;
     }
 
-    if (!emailPattern.test(email)){
+    if (!emailPattern.test(email)) {
         alert("Should be a valid email address");
         return;
     }
 
-
-
-
-
-
-    students.push({studentName, id, email, contact});
+    students.push({ studentName, id, email, contact });
     form.reset();
     renderStudents();
-
 });
 
-function deleteStudent() {
+
+function deleteStudent(index) {
     students.splice(index, 1);
     renderStudents();
 }
 
-function editStudent() {
+function editStudent(index) {
     const student = students[index];
-    document.getElementById("name").value = student.name;
-    document.getElementById("studentId").value = student.id;
+
+    document.getElementById("studentName").value = student.studentName;
+    document.getElementById("studentID").value = student.id;
     document.getElementById("email").value = student.email;
     document.getElementById("contact").value = student.contact;
 
     students.splice(index, 1);
     renderStudents();
-
 }
+
 
 renderStudents();
